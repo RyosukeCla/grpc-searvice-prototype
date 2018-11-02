@@ -1,0 +1,55 @@
+version: '3'
+
+services:
+  prereqs:
+    build:
+      context: ./
+      dockerfile: ./docker/prereqs.Dockerfile
+    image: prereqs
+
+  workspace:
+    build:
+      context: ./
+      dockerfile: ./docker/workspace.Dockerfile
+    depends_on:
+      - prereqs
+    tty: true
+    volumes:
+      - .:/home/admin/app:delegated
+
+  envoy:
+    image: envoyproxy/envoy:latest
+    ports:
+      - "8080:8080"
+    command: /usr/local/bin/envoy -c /etc/envoy/envoy.yaml -l trace --log-path /tmp/envoy_info.log
+    links:
+      - node-server
+    volumes:
+      - ./envoy.yaml:/etc/envoy/envoy.yaml
+
+  node-server:
+    build:
+      context: ./
+      dockerfile: ./docker/node-server.Dockerfile
+    image: node-server
+    command: bash
+    tty: true
+    ports:
+      - "9090:9090"
+    depends_on:
+      - prereqs
+    volumes:
+      - ./src/node-server:/home/admin/app:delegated
+
+  web-server:
+    image: node-server
+    depends_on:
+      - node-server
+    ports:
+      - "8081:8081"
+    links:
+      - envoy
+    tty: true
+    volumes:
+      - ./src/web-server:/home/admin/app:delegated
+

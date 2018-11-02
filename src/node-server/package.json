@@ -1,0 +1,27 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "tsc -p ./tsconfig.json --watch & nodemon dist/server.js",
+    "build": "tsc -p ./tsconfig.json",
+    "start": "node dist/server.js"
+  },
+  "author": "",
+  "license": "UNLICENSED",
+  "dependencies": {
+    "async": "2.6.1",
+    "google-protobuf": "3.6.1",
+    "grpc": "1.16.0",
+    "lodash": "4.17.11"
+  },
+  "devDependencies": {
+    "@types/async": "2.0.50",
+    "@types/lodash": "4.14.117",
+    "@types/node": "10.12.1",
+    "nodemon": "1.18.5",
+    "typescript": "3.1.5"
+  }
+}
