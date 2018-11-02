@@ -1,4 +1,4 @@
-# proof of concept
+# grpc services prototype
 
 ## getteing started
 ```bash
