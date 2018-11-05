@@ -40,11 +40,6 @@ export default {
         this.output1 = response.getMessage()
       })
 
-      const call2 = this.client.echo(request)
-      call2.on('data', (res) => {
-        console.log('hey', res.getMessage())
-      })
-
       call.on('status', (status) => {
         if (status.metadata) {
           this.metadata1 = status.metadata
