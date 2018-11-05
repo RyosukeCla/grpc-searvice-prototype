@@ -18,7 +18,7 @@ $ docker-compose exec node-server npm run dev
 
 ### web-server: nuxt
 ```bash
-$ docker-compose exec node-server npm i
+$ docker-compose exec web-server npm i
 $ docker-compose exec web-server npm run dev
 ```
 
